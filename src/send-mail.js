@@ -35,8 +35,8 @@ const sendEmail = async (mailObj) => {
       }, // html body
     });
 
-    console.log(`Message sent: ${info.messageId}`);
-    return `Message sent: ${info.messageId}`;
+    // console.log(`Message sent: ${info.messageId}`);
+    return `Mail successfully sent with id: ${info.messageId}`;
   } catch (error) {
     console.error(error);
     throw new Error(

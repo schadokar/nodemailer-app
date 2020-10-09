@@ -1,23 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const sendMailMethod = require("../src/send-mail");
+const querystring = require("querystring");
 
 // Post request to send an email
 router.post("/sendmail", async (req, res) => {
   try {
     const result = await sendMailMethod(req.body);
 
-    // send the response
-    res.json({
+    // build the query
+    const query = querystring.encode({
+      message: result,
       status: true,
-      payload: result,
     });
+    res.redirect("/?" + query);
   } catch (error) {
     console.error(error.message);
-    res.json({
+
+    // build the error query
+    const query = querystring.encode({
+      message: "Unable to send the message.",
       status: false,
-      payload: "Something went wrong in Sendmail Route.",
     });
+    res.redirect("/?" + query);
   }
 });
 

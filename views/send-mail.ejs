@@ -1,0 +1,56 @@
+<%- include('./partials/head')-%>
+
+<body class="container">
+  <%- include('./partials/header')-%>
+  <form action="/api/v1/sendmail" method="POST">
+    <div class="text-center">
+      <input
+        type="email"
+        class="ghost-input"
+        id="from"
+        name="from"
+        aria-describedby="emailHelp"
+        placeholder="Sender's Email Address"
+      />
+    </div>
+    <div class="text-center">
+      <input
+        type="email"
+        class="ghost-input"
+        id="to"
+        name="to"
+        aria-describedby="emailHelp"
+        placeholder="Receiver's Email Address"
+      />
+    </div>
+    <div class="text-center">
+      <input
+        type="text"
+        class="ghost-input"
+        id="subject"
+        name="subject"
+        placeholder="Email Subject"
+      />
+    </div>
+    <div class="text-center">
+      <input
+        type="text"
+        class="ghost-input"
+        id="text"
+        name="text"
+        placeholder="Message"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Send</button>
+  </form>
+  <div>
+    <% if(typeof message != "undefined" && message) { %> <% if(status == "true")
+    { %>
+    <div class="alert alert-success message" role="alert"><%- message %></div>
+    <% } else { %>
+    <div class="alert alert-danger message" role="alert"><%- message %></div>
+    <% } %> <% } %>
+  </div>
+  <%- include('./partials/footer')-%>
+</body>
