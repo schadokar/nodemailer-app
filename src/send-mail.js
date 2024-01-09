@@ -24,6 +24,9 @@ const sendEmail = async (mailObj) => {
       },
     });
 
+    let template = path.resolve(__dirname, "../template/mail.html")
+    template.render()
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: from, // sender address
