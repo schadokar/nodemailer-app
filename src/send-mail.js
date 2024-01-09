@@ -16,11 +16,11 @@ const sendEmail = async (mailObj) => {
   try {
     // Create a transporter
     let transporter = nodemailer.createTransport({
-      host: "smtp-relay.sendinblue.com",
-      port: 587,
+      host: process.env.SMTP_DOMAIN,
+      port: Number(process.env.SMTP_PORT),
       auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 

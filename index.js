@@ -11,9 +11,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    limit: "50mb",
+    limit: "10mb",
     extended: false,
-    parameterLimit: 50000,
+    parameterLimit: 10000,
   })
 );
 
@@ -27,7 +27,7 @@ app.use(express.static("./public"));
 app.use("/", appAPI);
 app.use("/api/v1", mailAPI);
 
-const port = process.env.PORT || 4444;
+const port = process.env.PORT || 3000;
 
 //listen to the server
 app.listen(port, function () {
