@@ -1,13 +1,6 @@
 <div style="text-align: center;"">
-  <h1 style="color: #3584c8;">Nodemailer Example</h1>
-  <p>
-    <%= welcomeMessage %>
-    <br />
-    🤗 🤗 🤗 🤗 🤗 🤗
-  </p>
-  <ul>
-    <% for(let key in requestBody) { %>
-      <li><%= key %>: <%= requestBody[key] %></li>
-    <% } %>
-  </ul>
+  <h1 style="color: #E20074;">Circle Partner Navigator - User Request</h1>
+  <% for(let key in requestBody) { %>
+    <p><%= key %>: <b><%= requestBody[key] %></b></p>
+  <% } %>
 </div>
