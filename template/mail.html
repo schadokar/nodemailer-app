@@ -5,4 +5,9 @@
     <br />
     🤗 🤗 🤗 🤗 🤗 🤗
   </p>
+  <ul>
+    <% for(let key in requestBody) { %>
+      <li><%= key %>: <%= requestBody[key] %></li>
+    <% } %>
+  </ul>
 </div>

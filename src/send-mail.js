@@ -1,6 +1,8 @@
 "use strict";
 require("dotenv").config();
+const { constants } = require("buffer");
 const nodemailer = require("nodemailer");
+const ejs = require('ejs');
 const path = require("path");
 /**
  * sendEmail
@@ -11,7 +13,7 @@ const path = require("path");
  * @param {String} text - Email body
  */
 const sendEmail = async (mailObj) => {
-  const { from, to, subject, text } = mailObj;
+  const { from, to, subject, message } = mailObj;
 
   try {
     // Create a transporter
@@ -24,18 +26,29 @@ const sendEmail = async (mailObj) => {
       },
     });
 
-    let template = path.resolve(__dirname, "../template/mail.html")
-    template.render()
+    const templatePath = path.resolve(__dirname, "../template/mail.html")
+    let templateData = {
+      welcomeMessage: "Hello!",
+      requestBody: message
+    }
+
+    let templateRendered = ""
+
+    ejs.renderFile(templatePath, templateData, {}, (err, str) => {
+      if (err) {
+        console.error(err);
+      } else {
+        templateRendered = str // Output: Rendered HTML content
+      }
+    });
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: from, // sender address
       to: to, // list of receivers
       subject: subject, // Subject line
-      text: text, // plain text body
-      html: {
-        path: path.resolve(__dirname, "../template/mail.html"),
-      }, // html body
+      text: String(message), // plain text body
+      html: templateRendered, // html body
     });
 
     // console.log(`Message sent: ${info.messageId}`);
