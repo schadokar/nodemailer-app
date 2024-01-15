@@ -10,6 +10,15 @@ router.post("/sendmail", async (req, res) => {
     const email_to_raw = process.env.MAIL_RECIPIENT
     const email_to = email_to_raw.split(',');
 
+    // Validate required fields
+    if (!req.body["subject"] || !req.body["message"] || !req.body["from"]) {
+      res.status(400).json({
+        status: "fail",
+        message: "Subject, from and message are required fields.",
+      });
+      return;
+    }
+
     let email_request = {}
     email_request["to"] = email_to
     email_request["from"] = req.body["from"]
@@ -18,21 +27,16 @@ router.post("/sendmail", async (req, res) => {
 
     const result = await sendMailMethod(email_request);
 
-    // build the query
-    const query = querystring.encode({
-      message: result,
-      status: true,
+    res.json({
+      status: "success",
+      data: null,
     });
-    res.redirect("/?" + query);
   } catch (error) {
     console.error(error.message);
-
-    // build the error query
-    const query = querystring.encode({
-      message: "Unable to send the message.",
-      status: false,
+    res.status(500).json({
+      status: "error",
+      message: "Something went wrong in Sendmail Route.",
     });
-    res.redirect("/?" + query);
   }
 });
 
