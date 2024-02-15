@@ -1,6 +1,11 @@
-<div style="text-align: center;"">
-  <h1 style="color: #E20074;">Circle Partner Navigator - User Request</h1>
+<div>
+  <h1 style="color: #E20074; text-align: center;">Circle Partner Navigator - User Request</h1>
   <% for(let key in requestBody) { %>
+    {% if key == 'message' %}
+    <p><%= key %>: </p>
+    <p><b><%= requestBody[key] %></b></p>
+    {% else %}
     <p><%= key %>: <b><%= requestBody[key] %></b></p>
+    {% endif %}    
   <% } %>
 </div>
